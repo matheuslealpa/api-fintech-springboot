@@ -1,0 +1,57 @@
+'Diagrama de classe das classes de dominio do projeto. As classes devem ser
+'definidas obrigatóriamente dentro da diretiva package.
+@startuml
+
+' @see https://plantuml.com/skinparam
+' @see https://www.uml-diagrams.org/class-diagrams-overview.html
+
+skinparam defaultFontName Droid Sans
+skinparam nodesep 50
+skinparam class {
+
+    BackgroundColor White
+    BackgroundColor<<Setting>> Wheat
+    BackgroundColor<<ReadOnly>> LightGray
+}
+'hide circle
+
+package "com.example.app.domain"<<Frame>> {
+    ' Definição das classes
+
+    abstract User {
+            -id: Long {id}
+            -fullName: String
+            -email: String UNIQUE
+            -password: String
+
+            -- <b>tagged values</b> --
+            fullName.caption: Full Name
+            email.caption: E-mail
+            password.caption: Password
+
+    }
+
+    class UserCommom{
+           -cpf: String UNIQUE
+
+           -- <b>tagged values</b> --
+           cpf.caption: CPF
+
+    }
+
+    class UserStore{
+           -cnpj: String UNIQUE
+
+           -- <b>tagged values</b> --
+           cnpj.caption: CNPJ
+    }
+
+    ' Definição dos Relacionamentos
+
+User --|> UserCommom
+User --|> UserStore
+
+
+}
+
+@enduml
