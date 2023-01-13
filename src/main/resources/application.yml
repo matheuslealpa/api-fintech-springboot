@@ -43,3 +43,10 @@ logging:
         jdbc:
           core:
             JdbcTemplate: ${LOGGING_LEVEL:DEBUG}
+management:
+  server:
+    port: 8080
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
