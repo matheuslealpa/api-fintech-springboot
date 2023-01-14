@@ -32,7 +32,7 @@ public class Cliente {
     @Column(unique = true, name = "EMAIL")
     private String email;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
 }
