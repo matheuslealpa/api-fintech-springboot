@@ -1,19 +1,17 @@
 package com.example.app.service;
 
-import java.util.Optional;
-
-import javax.persistence.EntityNotFoundException;
-
+import com.example.app.domain.Cliente;
+import com.example.app.repository.ClienteRepository;
+import com.example.app.service.exception.ValueAlreadyExistsException;
+import com.example.core.persistence.datafilter.RSQLParam;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.app.domain.Cliente;
-import com.example.app.repository.ClienteRepository;
-import com.example.core.persistence.datafilter.RSQLParam;
-
-import lombok.AllArgsConstructor;
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -33,6 +31,10 @@ public class ClienteService {
     }
 
     public Cliente insert(Cliente cliente){
+        Boolean existsClienteByCpf = clienteRepository.existsClienteByCpf(cliente.getCpf());
+        Boolean existsClienteByEmail = clienteRepository.existsClienteByEmail(cliente.getEmail());
+        if (existsClienteByCpf || existsClienteByEmail)
+            throw new ValueAlreadyExistsException("O valor já existe no banco de dados");
         return clienteRepository.save(cliente);
     }
 
