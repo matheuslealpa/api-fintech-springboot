@@ -11,7 +11,7 @@
 
 #### Passo 1 - Inicialização dos serviços
 
-Abra o terminal e na _raiz do projeto_ `springboot-fintech-api` e executar:
+Abra o terminal na _raiz do projeto_ `springboot-fintech-api` e execute:
 
 > $ sudo docker-compose up --remove-orphans
 
