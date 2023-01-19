@@ -1,26 +1,20 @@
 package com.example.app.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Table(name = "LOJISTA")
 public class Lojista {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_LOJISTA")
+    @SequenceGenerator(name = "SEQ_LOJISTA", sequenceName = "LOJISTA_SEQ")
     private Long id;
     
     @Column(name = "FULL_NAME")
@@ -34,5 +28,8 @@ public class Lojista {
 
     @Column(name = "PASSWORD")
     private String password;
+
+    @OneToOne(cascade = CascadeType.ALL ,orphanRemoval = true)
+    private Conta conta;
     
 }
